@@ -1,0 +1,47 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>This Job checks if ansible remote servers are available or not.</description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <org.jenkinsci.plugins.ansible.AnsibleAdHocCommandBuilder plugin="ansible@1.1">
+      <credentialsId>jenkins-slave-SSH</credentialsId>
+      <vaultCredentialsId></vaultCredentialsId>
+      <hostPattern>app</hostPattern>
+      <inventory class="org.jenkinsci.plugins.ansible.InventoryPath">
+        <path>/etc/ansible/hosts</path>
+      </inventory>
+      <module>ping</module>
+      <command></command>
+      <become>false</become>
+      <becomeUser>root</becomeUser>
+      <sudo>false</sudo>
+      <sudoUser></sudoUser>
+      <forks>5</forks>
+      <unbufferedOutput>true</unbufferedOutput>
+      <colorizedOutput>false</colorizedOutput>
+      <disableHostKeyChecking>true</disableHostKeyChecking>
+      <additionalParameters></additionalParameters>
+    </org.jenkinsci.plugins.ansible.AnsibleAdHocCommandBuilder>
+  </builders>
+  <publishers>
+    <hudson.tasks.BuildTrigger>
+      <childProjects>Agent-initial-setup</childProjects>
+      <threshold>
+        <name>SUCCESS</name>
+        <ordinal>0</ordinal>
+        <color>BLUE</color>
+        <completeBuild>true</completeBuild>
+      </threshold>
+    </hudson.tasks.BuildTrigger>
+  </publishers>
+  <buildWrappers/>
+</project>
